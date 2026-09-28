@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generatore Numeri Casuali</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        label {
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 1rem;
+            width: 80px;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 1rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .risultato {
+            margin-top: 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2e7d32;
+            word-wrap: break-word;
+        }
+        .numero-card {
+            display: inline-block;
+            background: #e8f5e9;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 8px;
+            border: 1px solid #c8e6c9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Generatore di Numeri</h1>
+    
+    <!-- Input per decidere la quantità -->
+    <label for="quantita">Quanti numeri vuoi estrarre?</label>
+    <input type="number" id="quantita" value="5" min="1" max="100">
+    
+    <br>
+    
+    <!-- Bottone che attiva il "rand" -->
+    <button onclick="generaNumeriCasuali()">Genera</button>
+    
+    <!-- Contenitore dove appariranno i numeri -->
+    <div class="risultato" id="output"></div>
+</div>
+
+<script>
+function generaNumeriCasuali() {
+    // 1. Legge quanti numeri ha richiesto l'utente
+    const inputQuantita = document.getElementById('quantita');
+    let quantita = parseInt(inputQuantita.value);
+    
+    // Validazione base per evitare errori
+    if (isNaN(quantita) || quantita < 1) {
+        alert("Inserisci un numero valido maggiore di 0");
+        return;
+    }
+    if (quantita > 100) {
+        quantita = 100; // Limite massimo per non rallentare la pagina
+        inputQuantita.value = 100;
+    }
+    
+    const outputDiv = document.getElementById('output');
+    outputDiv.innerHTML = ''; // Svuota i risultati precedenti
+    
+    // 2. Ciclo per generare i numeri casuali (es. da 1 a 90 come la tombola)
+    for (let i = 0; i < quantita; i++) {
+        // Genera un numero casuale tra 1 e 90
+        const numeroCasuale = Math.floor(Math.random() * 90) + 1;
+        
+        // Crea un piccolo elemento grafico per ogni numero
+        const span = document.createElement('span');
+        span.className = 'numero-card';
+        span.innerText = numeroCasuale;
+        
+        // Aggiunge il numero alla pagina
+        outputDiv.appendChild(span);
+    }
+}
+</script>
+
+</body>
+</html>
